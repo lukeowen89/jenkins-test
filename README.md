@@ -126,11 +126,11 @@ This will purge the entire cache and can be considered the equivalent of restart
 
 ![alt text](https://s3.amazonaws.com/docker-application-files/readme-assets/Screen+Shot+2017-10-06+at+17.48.13.png "Screenshot 2")
 
-2.) Nativate to Run -> Edit Configurations.
+2.) Navigate to Run -> Edit Configurations.
 
 ![alt text](https://s3.amazonaws.com/docker-application-files/readme-assets/Screen+Shot+2017-10-06+at+17.50.00.png "Screenshot 3")
 
-3.) Add a new **PHP Remote Debug** Configuration.
+3.) Add a new **PHP Remote Debug** configuration.
 
 ![alt text](https://s3.amazonaws.com/docker-application-files/readme-assets/Screen+Shot+2017-10-06+at+17.50.26.png "Screenshot 4")
 
