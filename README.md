@@ -90,6 +90,66 @@ To import it into your MySQL container via a single liner, run the following com
 
 If you don’t need every single BO client database installed and you’d like a quicker download/import, hit up a developer and they should be able to help you out.
 
+6.) Install BlocksOffice assets and run schema updates if you haven’t before.
+
+```./dockerfiles/assets_schema_update```
+
+7.) Comment out line 54-57 in web/app_dev.php. (BlocksOffice hacks...)
+
+8.) Access sites using the .docker extension via the app_dev.php framework. 
+
+![alt text](https://s3.amazonaws.com/docker-application-files/readme-assets/Screen+Shot+2017-10-12+at+16.49.34.png "Screenshot 1")
+
+## Advanced Usage
+
+### Running docker containers can be viewed by typing the following:
+
+```docker ps```
+
+### You can connect to a container via its name using the docker exec command.
+
+```docker exec -it symfony bash```
+
+Processes on the symfony container are managed by Supervisor. If you want to restart the processes being managed you should connect to the symfony containers shell and run the following:
+
+```supervisorctl restart all```
+
+### Clearing the Varnish cache.
+
+```./dockerfiles/varnish_clear```
+
+This will purge the entire cache and can be considered the equivalent of restarting varnish on a standard ec2 instance. For more granular cache clearing functionality connect to the varnish container and refer to the varnishadm documentation found here - https://varnish-cache.org/docs/3.0/tutorial/purging.html
+
+### Connecting PHPStorm to Docker.
+
+1.) Open preferences and navigate to Languages & Frameworks -> PHP -> Servers. Alter the settings as shown in the screenshot below and apply.
+
+![alt text](https://s3.amazonaws.com/docker-application-files/readme-assets/Screen+Shot+2017-10-06+at+17.48.13.png "Screenshot 2")
+
+2.) Nativate to Run -> Edit Configurations.
+
+![alt text](https://s3.amazonaws.com/docker-application-files/readme-assets/Screen+Shot+2017-10-06+at+17.50.00.png "Screenshot 3")
+
+3.) Add a new **PHP Remote Debug** Configuration. "Screenshot 4")
+
+![alt text](https://s3.amazonaws.com/docker-application-files/readme-assets/Screen+Shot+2017-10-06+at+17.50.26.png "Screenshot 4")
+
+4.) Enter the following details into the configuration and then click apply/ok.
+
+![alt text](https://s3.amazonaws.com/docker-application-files/readme-assets/Screen+Shot+2017-10-06+at+17.52.50.png "Screenshot 5")
+
+5.) You will now be able to turn on the xdebug listener in PHPStorm and intercept connections to your local Docker environment.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
