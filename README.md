@@ -8,9 +8,15 @@ BlocksOffice dockerized for development in local environments.
 
 https://download.docker.com/mac/edge/Docker.dmg
 
-**Linux (Ubuntu)** - Docker Community Edition. 
+**Linux (Ubuntu)** 
+
+Docker Community Edition. 
 
 https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository
+
+Docker Compose
+
+https://docs.docker.com/compose/install/#install-compose
 
 **Windows 10**
 
@@ -26,6 +32,18 @@ Coming soon...
 
 **Memcached** - 1.51
 
+## Before you begin...
+
+To avoid conflicts with your existing Nginx/Apache setup when running Docker (or any software that needs to bind ports to interfaces on localhost) please make sure that you are explicitly defining listener interfaces in your configurations. If you don't do this then Nginx/Apache on your local machine will be set by default to listen on every single interface for a given port. This is bad practice and will almost certainly give you grief/expose your local enviroment to potential security vulnerabiltiies. 
+
+**Good Setup**
+
+![alt text](https://s3.amazonaws.com/docker-application-files/readme-assets/Screen+Shot+2017-10-13+at+14.52.17.png "Screenshot Good")
+
+**Bad Setup**
+
+![alt text](https://s3.amazonaws.com/docker-application-files/readme-assets/Screen+Shot+2017-10-13+at+14.51.57.png "Screenshot Bad")
+
 ## Getting Started (First Time Installation)
 
 1.) Make sure docker is running.
@@ -38,7 +56,7 @@ Coming soon...
 
 3.) Install network aliases (Requirement on OS X only).
 
-```./dockerfiles/osx_init ```
+```sudo ./dockerfiles/osx_init ```
 
 4.) Add hostfile entries.
 
@@ -58,17 +76,17 @@ Coming soon...
 
 3.) (OS X) Fire up the BlocksOffice containers (This takes a few minutes first time you do it but is near instantaneous thereafter)
 
-```docker-compose up -d```
+```sudo docker-compose up -d```
 
 **Linux Users Only**
 
 3.) (Linux) Fire up the BlocksOffice containers (This takes a few minutes first time you do it but is near instantaneous thereafter)
 
-```./dockerfiles/linux_docker_compose_up```
+```sudo ./dockerfiles/linux_docker_compose_up```
 
 4.) Run BlocksOffice composer updates if you haven’t before.
 
-```./dockerfiles/composer_update```
+```sudo ./dockerfiles/composer_update```
 
 5.) Import a BO database into MySQL if you currently don’t have one. 
 
@@ -84,15 +102,15 @@ A SQL dump file can be found at the S3 link below which contains a copy of every
 
 https://s3.amazonaws.com/docker-application-files/blocksoffice/dbs.sql.zip
 
-To import it into your MySQL container via a single liner, run the following command:
+To import it into your MySQL container via a single liner, run the following command: (Make sure that you're running this from your local BO repository clone.)
 
-```curl -O https://s3.amazonaws.com/docker-application-files/blocksoffice/dbs.sql.zip && unzip dbs.sql.zip && docker exec -it symfony bash -c "yum install -y mysql && mysql -h mysqlserver -u root --password=root < /var/www/blocksoffice/dbs.sql"```
+```curl -O https://s3.amazonaws.com/docker-application-files/blocksoffice/dbs.sql.zip && unzip dbs.sql.zip && sudo docker exec -it symfony bash -c "yum install -y mysql && mysql -h mysqlserver -u root --password=root < /var/www/blocksoffice/dbs.sql"```
 
 If you don’t need every single BO client database installed and you’d like a quicker download/import, hit up a developer and they should be able to help you out.
 
 6.) Install BlocksOffice assets and run schema updates if you haven’t before.
 
-```./dockerfiles/assets_schema_update```
+```sudo ./dockerfiles/assets_schema_update```
 
 7.) Comment out line 54-57 in web/app_dev.php. (BlocksOffice hacks...)
 
@@ -108,7 +126,7 @@ If you don’t need every single BO client database installed and you’d like a
 
 ### You can connect to a container via its name using the docker exec command.
 
-```docker exec -it symfony bash```
+```sudo docker exec -it symfony bash```
 
 Processes on the symfony container are managed by Supervisor. If you want to restart the processes being managed you should connect to the symfony containers shell and run the following:
 
@@ -116,7 +134,7 @@ Processes on the symfony container are managed by Supervisor. If you want to res
 
 ### Clearing the Varnish cache.
 
-```./dockerfiles/varnish_clear```
+```sudo ./dockerfiles/varnish_clear```
 
 This will purge the entire cache and can be considered the equivalent of restarting varnish on a standard ec2 instance. For more granular cache clearing functionality connect to the varnish container and refer to the varnishadm documentation found here - https://varnish-cache.org/docs/3.0/tutorial/purging.html
 
